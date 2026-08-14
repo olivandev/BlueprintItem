@@ -8,5 +8,15 @@
     "entry.open_construction_menu_hotkey" : "Opens Construction menu hotkey",
     "item.name" : "Blueprint",
     "spell.description" : "Open Construction menu without needing a Workbench using the \"{0}\" key."
+  },
+  "es_ES" : {
+    "mod.name" : "Ítem de planos",
+    "mod.description" : "Agrega el ítem consumible de planos, permitiendo a los jugadores abrir el menú de construcción sin necesidad de un banco de trabajo.",
+    "section.general": "General",
+    "section.controls": "Controles",
+    "config.open_construction_menu_hotkey" : "Abre el menú de construcción.  Tecla predeterminada: \"B\".",
+    "entry.open_construction_menu_hotkey" : "Atajo para abrir el menú de construcción",
+    "item.name" : "Planos",
+    "spell.description" : "Abre el menú de construcción sin necesitar un banco de trabajo usando la tecla \"{0}\"."
   }
 }
