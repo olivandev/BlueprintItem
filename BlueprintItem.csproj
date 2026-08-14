@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <OutputType>Library</OutputType>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <EnablePreviewFeatures>true</EnablePreviewFeatures>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <NoWarn>$(NoWarn);CA2252;CA1416</NoWarn>
+
+    <GamePath Condition="'$(GamePath)' == ''">C:\Program Files (x86)\Steam\steamapps\common\romestead</GamePath>
+    <GameBepInExPath Condition="'$(GameBepInExPath)' == ''">$(GamePath)\BepInEx</GameBepInExPath>
+    <GamePluginsPath Condition="'$(GamePluginsPath)' == ''">$(GameBepInExPath)\plugins</GamePluginsPath>
+    <PackageId>BlueprintItem</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- BepInEx and HarmonyX. Required by every Romestead BepInEx plugin. -->
+    <Reference Include="0Harmony">
+      <HintPath>$(GameBepInExPath)\core\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="BepInEx.Core">
+      <HintPath>$(GameBepInExPath)\core\BepInEx.Core.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="BepInEx.NET.Common">
+      <HintPath>$(GameBepInExPath)\core\BepInEx.NET.Common.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+
+    <!-- Game assemblies. Reference them for compiling, never distribute them with your mod. -->
+    <Reference Include="Romestead">
+      <HintPath>$(GamePath)\Romestead.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="CandideServer">
+      <HintPath>$(GamePath)\CandideServer.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Shared">
+      <HintPath>$(GamePath)\Shared.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="CandideCreator.Shared">
+      <HintPath>$(GamePath)\CandideCreator.Shared.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>$(GamePath)\MonoGame.Framework.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    
+    <!-- Mod assembiles -->
+    <Reference Include="RomesteadLocalizationAPI">
+      <HintPath>$(GameBepInExPath)\plugins\RomesteadLocalizationAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="RomesteadLocalizationAPI">
+      <HintPath>$(GameBepInExPath)\plugins\ModSettingsMenu.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PluginDeployPath>$(GamePluginsPath)\$(MSBuildProjectName)</PluginDeployPath>
+  </PropertyGroup>
+  
+  <Target Name="CopyToGamePlugins" AfterTargets="Build" Condition="Exists('$(GamePluginsPath)')">
+    <ItemGroup>
+      <SpriteFiles Include="Assets\**\*.*" />
+    </ItemGroup>
+    
+    <RemoveDir Directories="$(PluginDeployPath)"
+               Condition="'$(PluginDeployPath)' != '' And Exists('$(PluginDeployPath)')" />
+
+    <Copy SourceFiles="$(TargetPath)"
+          DestinationFolder="$(PluginDeployPath)"
+          SkipUnchangedFiles="true" />
+
+    <Copy SourceFiles="Localization.json"
+          DestinationFolder="$(PluginDeployPath)"
+          SkipUnchangedFiles="true" />
+
+    <Copy SourceFiles="@(SpriteFiles)"
+          DestinationFiles="@(SpriteFiles->'$(PluginDeployPath)\$(MSBuildProjectName)Content\%(RecursiveD2ir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
+  
+<!--  <Target Name="CopyToGamePlugins" AfterTargets="Build">-->
+<!--    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GamePluginsPath)" SkipUnchangedFiles="true" Condition="Exists('$(GamePluginsPath)')" />-->
+<!--  </Target>-->
+</Project>

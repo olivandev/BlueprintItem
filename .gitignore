@@ -1,0 +1,33 @@
+# ==========================================
+# JetBrains Rider & IntelliJ IDE Files
+# ==========================================
+.idea/
+*.sln.iml
+*.suo
+*.user
+*.userosscache
+
+# ==========================================
+# C# / .NET Build Artifacts
+# ==========================================
+[Bb]in/
+[Oo]bj/
+[Log]/
+
+# ==========================================
+# NuGet Packages & Restores
+# ==========================================
+packages/
+*.nuget.props
+*.nuget.targets
+
+# ==========================================
+# Environment / Local Secrets
+# ==========================================
+*.userprefs
+.vs/
+_UpgradeReport_Files/
+
+# (Optional) Uncomment if you don't want local settings or environment overrides pushed
+# **/appsettings*.Development.json
+# **/launchSettings.json
