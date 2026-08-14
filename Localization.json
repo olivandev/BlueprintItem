@@ -1,0 +1,12 @@
+{
+  "en" : {
+    "mod.name" : "Blueprint Item",
+    "mod.description" : "Adds the consumable Blueprint item, allowing players to open the Construction menu without a Workbench.",
+    "section.general": "General",
+    "section.controls": "Controls",
+    "config.open_construction_menu_hotkey" : "Opens Construction menu. Default \"B\".",
+    "entry.open_construction_menu_hotkey" : "Opens Construction menu hotkey",
+    "item.name" : "Blueprint",
+    "spell.description" : "Open Construction menu without needing a Workbench using the \"{0}\" key."
+  }
+}
