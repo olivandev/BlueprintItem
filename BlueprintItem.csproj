@@ -51,42 +51,63 @@
       <HintPath>$(GamePath)\MonoGame.Framework.dll</HintPath>
       <Private>false</Private>
     </Reference>
-    
+
     <!-- Mod assembiles -->
     <Reference Include="RomesteadLocalizationAPI">
       <HintPath>$(GameBepInExPath)\plugins\RomesteadLocalizationAPI.dll</HintPath>
     </Reference>
-    <Reference Include="RomesteadLocalizationAPI">
+    <Reference Include="ModSettingsMenu">
       <HintPath>$(GameBepInExPath)\plugins\ModSettingsMenu.dll</HintPath>
     </Reference>
   </ItemGroup>
 
+  <!--  <PropertyGroup>-->
+  <!--    <PluginDeployPath>$(GamePluginsPath)\$(MSBuildProjectName)</PluginDeployPath>-->
+  <!--  </PropertyGroup>-->
+  <!--  -->
+  <!--  <Target Name="CopyToGamePlugins" AfterTargets="Build" Condition="Exists('$(GamePluginsPath)')">-->
+  <!--    <ItemGroup>-->
+  <!--      <SpriteFiles Include="Assets\**\*.*" />-->
+  <!--    </ItemGroup>-->
+
+
+  <!--    <RemoveDir Directories="$(PluginDeployPath)"-->
+  <!--               Condition="'$(PluginDeployPath)' != '' And Exists('$(PluginDeployPath)')" />-->
+
+  <!--    <Copy SourceFiles="$(TargetPath)"-->
+  <!--          DestinationFolder="$(PluginDeployPath)"-->
+  <!--          SkipUnchangedFiles="true" />-->
+
+  <!--    <Copy SourceFiles="Localization.json"-->
+  <!--          DestinationFolder="$(PluginDeployPath)"-->
+  <!--          SkipUnchangedFiles="true" />-->
+
+  <!--    <Copy SourceFiles="@(SpriteFiles)"-->
+  <!--          DestinationFiles="@(SpriteFiles->'$(PluginDeployPath)\$(MSBuildProjectName)Content\%(RecursiveD2ir)%(Filename)%(Extension)')"-->
+  <!--          SkipUnchangedFiles="true" />-->
+  <!--  </Target>-->
+
   <PropertyGroup>
-    <PluginDeployPath>$(GamePluginsPath)\$(MSBuildProjectName)</PluginDeployPath>
+    <DistDir>$(MSBuildProjectDirectory)\dist\</DistDir>
+    <PackageStagingDir>$(IntermediateOutputPath)Package\</PackageStagingDir>
+    <PackagePluginDir>$(PackageStagingDir)BepInEx\plugins\$(MSBuildProjectName)\</PackagePluginDir>
   </PropertyGroup>
-  
-  <Target Name="CopyToGamePlugins" AfterTargets="Build" Condition="Exists('$(GamePluginsPath)')">
+
+  <Target Name="CreateReleaseZip" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
     <ItemGroup>
-      <SpriteFiles Include="Assets\**\*.*" />
+      <ReleaseSpriteFiles Include="Assets\**\*.*" />
     </ItemGroup>
-    
-    <RemoveDir Directories="$(PluginDeployPath)"
-               Condition="'$(PluginDeployPath)' != '' And Exists('$(PluginDeployPath)')" />
 
-    <Copy SourceFiles="$(TargetPath)"
-          DestinationFolder="$(PluginDeployPath)"
-          SkipUnchangedFiles="true" />
+    <RemoveDir Directories="$(PackageStagingDir)" Condition="Exists('$(PackageStagingDir)')" />
+    <MakeDir Directories="$(PackagePluginDir)" />
 
-    <Copy SourceFiles="Localization.json"
-          DestinationFolder="$(PluginDeployPath)"
-          SkipUnchangedFiles="true" />
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PackagePluginDir)" />
+    <Copy SourceFiles="Localization.json" DestinationFolder="$(PackagePluginDir)" />
+    <!--    <Copy SourceFiles="README.md" DestinationFolder="$(PackageStagingDir)" />-->
+    <Copy SourceFiles="@(ReleaseSpriteFiles)"
+          DestinationFiles="@(ReleaseSpriteFiles->'$(PackagePluginDir)$(MSBuildProjectName)Content\%(RecursiveDir)%(Filename)%(Extension)')" />
 
-    <Copy SourceFiles="@(SpriteFiles)"
-          DestinationFiles="@(SpriteFiles->'$(PluginDeployPath)\$(MSBuildProjectName)Content\%(RecursiveD2ir)%(Filename)%(Extension)')"
-          SkipUnchangedFiles="true" />
+    <MakeDir Directories="$(DistDir)" Condition="!Exists('$(DistDir)')" />
+    <ZipDirectory SourceDirectory="$(PackageStagingDir)" DestinationFile="$(DistDir)$(MSBuildProjectName).zip" Overwrite="true" />
   </Target>
-  
-<!--  <Target Name="CopyToGamePlugins" AfterTargets="Build">-->
-<!--    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GamePluginsPath)" SkipUnchangedFiles="true" Condition="Exists('$(GamePluginsPath)')" />-->
-<!--  </Target>-->
 </Project>

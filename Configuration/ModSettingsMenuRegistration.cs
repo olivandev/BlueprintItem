@@ -26,7 +26,6 @@ internal static class ModSettingsMenuRegistration
 
   private static void Refresh()
   {
-    BlueprintItem.Logger.LogError("here");
     if (ModSettingsMenuRegistration._config == null)
       return;
     string currentLocale = I18n.L.CurrentLocale;
