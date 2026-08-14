@@ -13,6 +13,8 @@
 [Bb]in/
 [Oo]bj/
 [Log]/
+[Dd]ist/
+[Pp]ackage
 
 # ==========================================
 # NuGet Packages & Restores

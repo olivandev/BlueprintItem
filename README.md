@@ -12,9 +12,9 @@ A Romestead BepInEx mod that adds a consumable **Blueprint** item. Using it unlo
 
 ## Requirements
 
-- [BepinEx 6 For Romestead](https://www.nexusmods.com/romestead/mods/1)
+- [BepinEx 6 For Romestead]([https://www.nexusmods.com/romestead/mods](https://www.nexusmods.com/romestead/mods/1))
 - [RomesteadLocalizationAPI](https://www.nexusmods.com/romestead/mods/53) (hard dependency)
-- [ModSettingsMenu](https://www.nexusmods.com/romestead/mods/8) (hard dependency)
+- [ModSettingsMenu]([https://www.nexusmods.com/romestead/mods](https://www.nexusmods.com/romestead/mods/8)) (hard dependency)
 
 ## Installation
 
@@ -76,7 +76,7 @@ Do not package the game's own assemblies, BepInEx core, Steam DLLs, save files, 
 
 ## Credits
 
-- **Ice Box Studio** — this mod depends on their [RomesteadLocalizationAPI](https://www.nexusmods.com/romestead/mods/53) and [ModSettingsMenu](https://www.nexusmods.com/romestead/mods/8), and its settings-menu localization pattern was adapted from their LogisticsPlanner mod.
+- **Ice Box Studio** — this mod depends on their [RomesteadLocalizationAPI](https://www.nexusmods.com/romestead/mods/53) and [ModSettingsMenu]([ModSettingsMenu]([https://www.nexusmods.com/romestead/mods](https://www.nexusmods.com/romestead/mods/8))), and its settings-menu localization pattern was adapted from their LogisticsPlanner mod.
 
 ## Notes
 
