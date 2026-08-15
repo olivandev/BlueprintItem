@@ -8,6 +8,6 @@ namespace BlueprintItem
         public const string PLUGIN_GUID = $"{PLUGIN_AUTHOR}.Romestead.{PLUGIN_NAME}";
         // public const string PLUGIN_AUTHOR_URL = "https://steamcommunity.com/id/souliiii/";
         public const int NEXUS_MODS_ID = 95;
-        public const string UPDATE_MANIFEST_URL = "https://cdn.jsdelivr.net/gh/olivandev/BlueprintItem@main/version.json";
+        public const string UPDATE_MANIFEST_URL = "https://cdn.jsdelivr.net/gh/olivandev/BlueprintItem@main/BlueprintItem.json";
     }
 }
