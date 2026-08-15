@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using BlueprintItem.Configuration;
 using Candide.GameModels.Models.Spells;
 using Candide.Multiplayer.Models;
 using HarmonyLib;
@@ -43,9 +44,15 @@ internal class ScriptedSpellPatch
 
     [HarmonyPostfix]
     [HarmonyPatch("GetToolTipText")]
-    private static void GetToolTipTextPrefix(StringBuilder sb, object? spellArgs)
+    private static void GetToolTipTextPostfix(StringBuilder sb, object? spellArgs)
     {
+        if (!(spellArgs is ScriptedSpellArgs scriptedSpellArgs))
+            return;
+
+        if (scriptedSpellArgs.Script != Constants.ScriptName)
+            return;
+
         StringBuilder stringBuilder = sb;
-        stringBuilder.AppendLine(I18n.L.Text("item.missing"));
+        stringBuilder.AppendLine(I18n.L.Text("spell.description", ConfigManager.OpenConstructionMenuHotkey.Value));
     }
 }

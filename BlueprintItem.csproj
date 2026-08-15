@@ -9,6 +9,9 @@
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <NoWarn>$(NoWarn);CA2252;CA1416</NoWarn>
 
+    <PluginInfoContent>$([System.IO.File]::ReadAllText('$(MSBuildProjectDirectory)\PluginInfo.cs'))</PluginInfoContent>
+    <Version>$([System.Text.RegularExpressions.Regex]::Match($(PluginInfoContent), 'PLUGIN_VERSION\s*=\s*"([^"]+)"').Groups[1].Value)</Version>
+
     <GamePath Condition="'$(GamePath)' == ''">C:\Program Files (x86)\Steam\steamapps\common\romestead</GamePath>
     <GameBepInExPath Condition="'$(GameBepInExPath)' == ''">$(GamePath)\BepInEx</GameBepInExPath>
     <GamePluginsPath Condition="'$(GamePluginsPath)' == ''">$(GameBepInExPath)\plugins</GamePluginsPath>
@@ -108,6 +111,6 @@
           DestinationFiles="@(ReleaseSpriteFiles->'$(PackagePluginDir)$(MSBuildProjectName)Content\%(RecursiveDir)%(Filename)%(Extension)')" />
 
     <MakeDir Directories="$(DistDir)" Condition="!Exists('$(DistDir)')" />
-    <ZipDirectory SourceDirectory="$(PackageStagingDir)" DestinationFile="$(DistDir)$(MSBuildProjectName).zip" Overwrite="true" />
+    <ZipDirectory SourceDirectory="$(PackageStagingDir)" DestinationFile="$(DistDir)$(MSBuildProjectName)_$(Version).zip" Overwrite="true" />
   </Target>
 </Project>
