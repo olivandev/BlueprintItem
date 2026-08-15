@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using BlueprintItem.Configuration;
 using Candide.GameModels.Models.Spells;
 using Candide.Multiplayer.Models;
 using HarmonyLib;
@@ -9,7 +8,6 @@ using Shared.Combat.Spells.Casting;
 using Shared.Combat.Spells.Parameters;
 using Shared.Helpers;
 using Shared.Models.Player;
-using Shared.Text;
 
 #nullable enable
 namespace BlueprintItem.Patches.Spell;
@@ -48,6 +46,6 @@ internal class ScriptedSpellPatch
     private static void GetToolTipTextPrefix(StringBuilder sb, object? spellArgs)
     {
         StringBuilder stringBuilder = sb;
-        stringBuilder.AppendLine(I18n.L.Text("spell.description", ConfigManager.OpenConstructionMenuHotkey.Value));
+        stringBuilder.AppendLine(I18n.L.Text("item.missing"));
     }
 }

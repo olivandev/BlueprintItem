@@ -1,17 +1,13 @@
-﻿using BepInEx.Logging;
-using BlueprintItem.Configuration;
+﻿using BlueprintItem.Configuration;
 using Candide;
 using Candide.CandideUI;
-using Candide.CandideUI.PauseMenuUi;
 using Candide.GameModels;
 using Candide.GameModels.Helpers;
 using Candide.GameModels.Managers;
 using Candide.GameModels.Models;
 using Candide.Input;
 using Candide.PlayerMode;
-using Candide.PlayerMode.Construction;
 using Candide.Sound;
-using Candide.Terminal;
 using HarmonyLib;
 using Shared.Entity;
 
@@ -39,7 +35,7 @@ internal static class CandideEngineUpdatePatch
         if ((int)LocalPlayerFlags.GetFlagValue1(Constants.Flag, Constants.FlagDefault) < 1)
         {
             SoundPlayer.PlayEventOneShot("event:/interface/cancel");
-            PlayerWarningMessage.Add("Requires Blueprint");
+            PlayerWarningMessage.Add(I18n.L.Text("item.missing"));
             return;
         }
 
