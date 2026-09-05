@@ -1,13 +1,16 @@
 ﻿using BlueprintItem.Configuration;
 using Candide;
 using Candide.CandideUI;
+using Candide.CandideUI.UiInput;
 using Candide.GameModels;
 using Candide.GameModels.Helpers;
 using Candide.GameModels.Managers;
 using Candide.GameModels.Models;
 using Candide.Input;
+using Candide.Input.InputProviders.Native;
 using Candide.PlayerMode;
 using Candide.Sound;
+using CandideServer.Models.Worlds;
 using HarmonyLib;
 using Shared.Entity;
 
@@ -27,15 +30,22 @@ internal static class CandideEngineUpdatePatch
     [HarmonyPatch(nameof(CandideEngine.Update))]
     private static void UpdatePostfix(CandideEngine __instance)
     {
-        if (CandideUiSystem.InputFocusableElement != null ||
+        if (UiInputSystem.InputFocusableElement != null ||
             PauseModeManager.Instance.Active ||
             __instance.Terminal.Active ||
-            !InputManager.Pressed(ConfigManager.OpenConstructionMenuHotkey.Value)) return;
+            !NativeInput.Pressed(ConfigManager.OpenConstructionMenuHotkey.Value)) return;
 
         if ((int)LocalPlayerFlags.GetFlagValue1(Constants.Flag, Constants.FlagDefault) < 1)
         {
             SoundPlayer.PlayEventOneShot("event:/interface/cancel");
             PlayerWarningMessage.Add(I18n.L.Text("item.missing"));
+            return;
+        }
+
+        if (GameState.CurrentWorld.Type != WorldModel.WorldType.Chunked)
+        {
+            SoundPlayer.PlayEventOneShot("event:/interface/cancel");
+            PlayerWarningMessage.Add(I18n.L.Text("invalid.location"));
             return;
         }
 

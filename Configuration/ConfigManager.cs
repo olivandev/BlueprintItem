@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BepInEx.Configuration;
 using Microsoft.Xna.Framework.Input;
+using ModSettingsMenu.Api;
 
 namespace BlueprintItem.Configuration;
 

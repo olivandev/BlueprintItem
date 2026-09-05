@@ -64,37 +64,33 @@
     </Reference>
   </ItemGroup>
 
-<!--  <PropertyGroup>-->
-<!--    <PluginDeployPath>$(GamePluginsPath)\$(MSBuildProjectName)</PluginDeployPath>-->
-<!--  </PropertyGroup>-->
-<!--  -->
-<!--  <Target Name="CopyToGamePlugins" AfterTargets="Build" Condition="Exists('$(GamePluginsPath)')">-->
-<!--    <ItemGroup>-->
-<!--      <SpriteFiles Include="Assets\**\*.*" />-->
-<!--    </ItemGroup>-->
-
-
-<!--    <RemoveDir Directories="$(PluginDeployPath)"-->
-<!--               Condition="'$(PluginDeployPath)' != '' And Exists('$(PluginDeployPath)')" />-->
-
-<!--    <Copy SourceFiles="$(TargetPath)"-->
-<!--          DestinationFolder="$(PluginDeployPath)"-->
-<!--          SkipUnchangedFiles="true" />-->
-
-<!--    <Copy SourceFiles="Localization.json"-->
-<!--          DestinationFolder="$(PluginDeployPath)"-->
-<!--          SkipUnchangedFiles="true" />-->
-
-<!--    <Copy SourceFiles="@(SpriteFiles)"-->
-<!--          DestinationFiles="@(SpriteFiles->'$(PluginDeployPath)\$(MSBuildProjectName)Content\%(RecursiveD2ir)%(Filename)%(Extension)')"-->
-<!--          SkipUnchangedFiles="true" />-->
-<!--  </Target>-->
-
   <PropertyGroup>
     <DistDir>$(MSBuildProjectDirectory)\dist\</DistDir>
     <PackageStagingDir>$(IntermediateOutputPath)Package\</PackageStagingDir>
     <PackagePluginDir>$(PackageStagingDir)BepInEx\plugins\$(MSBuildProjectName)\</PackagePluginDir>
+    <PluginDeployPath>$(GamePluginsPath)\$(MSBuildProjectName)</PluginDeployPath>
   </PropertyGroup>
+
+  <Target Name="CopyToGamePlugins" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug' And Exists('$(GamePluginsPath)')">
+    <ItemGroup>
+      <SpriteFiles Include="Assets\**\*.*" />
+    </ItemGroup>
+
+    <RemoveDir Directories="$(PluginDeployPath)"
+               Condition="'$(PluginDeployPath)' != '' And Exists('$(PluginDeployPath)')" />
+
+    <Copy SourceFiles="$(TargetPath)"
+          DestinationFolder="$(PluginDeployPath)"
+          SkipUnchangedFiles="true" />
+
+    <Copy SourceFiles="Localization.json"
+          DestinationFolder="$(PluginDeployPath)"
+          SkipUnchangedFiles="true" />
+
+    <Copy SourceFiles="@(SpriteFiles)"
+          DestinationFiles="@(SpriteFiles->'$(PluginDeployPath)\$(MSBuildProjectName)Content\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
 
   <Target Name="CreateReleaseZip" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
     <ItemGroup>
