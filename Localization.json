@@ -5,9 +5,10 @@
     "section.general": "General",
     "section.controls": "Controls",
     "config.open_construction_menu_hotkey" : "Opens Construction menu. Default \"B\".",
-    "entry.open_construction_menu_hotkey" : "Opens Construction menu hotkey",
+    "entry.open_construction_menu_hotkey" : "Construction menu",
     "item.name" : "Blueprint",
     "item.missing" : "Requires Blueprint",
+    "invalid.location" : "Cannot open the menu indoors",
     "spell.description" : "Open Construction menu without needing a Workbench using the \"{0}\" key.",
   },
   "es_ES" : {
@@ -16,8 +17,9 @@
     "section.general": "General",
     "section.controls": "Controles",
     "config.open_construction_menu_hotkey" : "Abre el menú de construcción.  Tecla predeterminada: \"B\".",
-    "entry.open_construction_menu_hotkey" : "Atajo para abrir el menú de construcción",
+    "entry.open_construction_menu_hotkey" : "Menú de construcción",
     "item.name" : "Planos",
+    "invalid.location" : "No se puede abrir el menú en interiores",
     "item.missing" : "Se requiere el ítem de plano",
     "spell.description" : "Abre el menú de construcción sin necesitar un banco de trabajo usando la tecla \"{0}\"."
   }
